@@ -9,22 +9,25 @@ export default function App() {
   const [visivel, setVisivel] = useState(false);
   const [cep, setCep] = useState("");
   const [dados, setDados] = useState({});
-  const [expandido, setExpandido] = useState(false);
+  const [sexoExpandido, setSexoExpandido] = useState(false);
+  const [estadoExpandido, setEstadoExpandido] = useState(false);
   const [estadoSelecionado, setEstadoSelecionado] = useState(null);
   const [sexoSelecionado, setSexoSelecionado] = useState(null);
 
   const mostrarModal = () => setVisivel(true);
   const esconderModal = () => setVisivel(false);
-  const alternarExpandido = () => setExpandido(!expandido);
+
+  const alternarSexoExpandido = () => setSexoExpandido(!sexoExpandido);
+  const alternarEstadoExpandido = () => setEstadoExpandido(!estadoExpandido);
 
   const aoSelecionarItem = (item) => {
     setEstadoSelecionado(item);
-    setExpandido(false);
+    setEstadoExpandido(false);
   };
 
   const aoSelecionarSexo = (sexo) => {
     setSexoSelecionado(sexo);
-    setExpandido(false);
+    setSexoExpandido(false);
   };
 
   const buscarCep = (valorCep) => {
@@ -80,10 +83,8 @@ export default function App() {
         <View style={styles.container}>
           <DadosPessoais
             sexoSelecionado={sexoSelecionado}
-            expandido={expandido && sexoSelecionado === null}
-            alternarExpandido={() =>
-              setSexoSelecionado === null && alternarExpandido()
-            }
+            expandido={sexoExpandido}
+            alternarExpandido={alternarSexoExpandido}
             aoSelecionarSexo={aoSelecionarSexo}
           />
 
@@ -93,10 +94,8 @@ export default function App() {
             dados={dados}
             definirDados={setDados}
             estadoSelecionado={estadoSelecionado}
-            expandido={expandido && sexoSelecionado !== null}
-            alternarExpandido={() =>
-              sexoSelecionado !== null && alternarExpandido()
-            }
+            expandido={estadoExpandido}
+            alternarExpandido={alternarEstadoExpandido}
             aoSelecionarEstado={aoSelecionarItem}
             buscarCep={buscarCep}
             estados={estados}
